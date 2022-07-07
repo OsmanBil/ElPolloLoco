@@ -4,6 +4,9 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    chickenEnergy = 100;
+    lastHitChicken = 0;
+
     coin = 0;
     bottle = 0;
 
@@ -48,6 +51,9 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
+
+
     takeCoin()  {
         this.coin += 1;
         if (this.coin > 10) {
@@ -76,6 +82,8 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
+
+
 
 
     moveRight(params) {
