@@ -9,7 +9,7 @@ class CoinBar extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador moneda/azul/100_.png'
     ]
 
-    percentage = 0;
+    percentageCoin = 0;
 
     constructor() {
         super();
@@ -18,26 +18,26 @@ class CoinBar extends DrawableObject {
         this.y = 50;
         this.width = 200;
         this.height = 60; 
-        this.setPercentage(0);
+        this.setPercentageCoin(0);
     }
 
 
-    setPercentage(percentage) {
-        this.percentage = percentage;  // => 0...5
+    setPercentageCoin(percentageCoin) {
+        this.percentageCoin = percentageCoin;  // => 0...5
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentageCoin == 10) {
             return 5;
-        } else if (this.percentage > 80) {
+        } else if (this.percentageCoin >= 8) {
             return 4;
-        } else if (this.percentage > 60) {
+        } else if (this.percentageCoin >= 6) {
             return 3;
-        } else if (this.percentage > 40) {
+        } else if (this.percentageCoin >= 4) {
             return 2;
-        } else if (this.percentage > 20) {
+        } else if (this.percentageCoin >= 2) {
             return 1;
         } else {
             return 0;

@@ -49,12 +49,23 @@ class MovableObject extends DrawableObject {
     }
 
     takeCoin()  {
-        this.coinsCount += 10;
-        if (this.coinsCount > 100) {
-            this.coinsCount = 100;
+        this.coin += 1;
+        if (this.coin > 10) {
+            this.coin = 10;
         }
     
     }
+
+    takeBottle()  {
+        this.bottle += 1;
+        if (this.bottle > 5) {
+            this.bottle = 5;
+        }
+        
+    
+    }
+
+
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; //difference in ms
