@@ -93,17 +93,21 @@ class World {
     }
 
 
-    hitChicken(){
-       
+    hitChicken(enemy){
 
+        this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+
+        console.log('chicken is dead');
         this.chickenIsDead();
 
     }
 
 
     chickenIsDead(){
-        chickenIsDead();
-      console.log('chicken is dead');
+        //this.level.coin.splice(this.level.coin.indexOf(coin), 1);
+
+
+     
     }
 
 
@@ -111,7 +115,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             this.throwableObjects.forEach(bottle => {
                 if (bottle.isColliding(enemy)) {
-                    this.hitChicken();
+                    this.hitChicken(enemy);
                 
                 }
             });

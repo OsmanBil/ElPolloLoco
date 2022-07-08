@@ -55,6 +55,7 @@ window.addEventListener('keyup', (e) => {
 });
 
  function startGame(){
+   // initLevel1();
     
     var element = document.getElementById("startScreen");
     element.classList.add("displayNone");
