@@ -93,21 +93,28 @@ class World {
     }
 
 
+    /* 
     hitChicken(enemy){
-
-        this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-
         console.log('chicken is dead');
-        this.chickenIsDead();
-
+        this.chickenIsDead(enemy);
     }
+    */
 
 
-    chickenIsDead(){
-        //this.level.coin.splice(this.level.coin.indexOf(coin), 1);
+    chickenIsDead(enemy){
+        /*
+        let timepassed = new Date().getTime() - this.lastHit; //difference in ms
+        timepassed = timepassed / 1000; //difference in s
+        return timepassed < 1;
+        */
 
-
+        //this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
      
+        setTimeout(() => {
+            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+    
+        }, 400);
+    
     }
 
 
@@ -115,8 +122,8 @@ class World {
         this.level.enemies.forEach((enemy) => {
             this.throwableObjects.forEach(bottle => {
                 if (bottle.isColliding(enemy)) {
-                    this.hitChicken(enemy);
-                
+                    enemy.hitChicken();
+                    this.chickenIsDead(enemy);
                 }
             });
 

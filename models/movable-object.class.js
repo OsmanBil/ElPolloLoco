@@ -83,7 +83,22 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    hitChicken(enemy){
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
 
+        console.log('chicken is dead');
+        //this.chickenIsDead(enemy);
+   
+    }
+
+    chickenIsDead(){
+        return this.energy == 0;
+    }
 
 
     moveRight(params) {
