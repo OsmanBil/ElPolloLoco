@@ -46,7 +46,7 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
 
-    ]
+    ];
 
     world;
     walking_sound = new Audio('audio/walk.mp3');
@@ -99,6 +99,9 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                console.log('Spiel zu ende');
+
+
             } else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_HURT);
             }
@@ -115,6 +118,7 @@ class Character extends MovableObject {
 
     jump() {
         this.speedY = 30;
+        this.jump_sound.play();
     }
 
 

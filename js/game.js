@@ -8,6 +8,7 @@ function init() {
     world = new World(canvas, keyboard);
 
     console.log('My Character is', world.character);
+    game_sound = new Audio('audio/music.mp3');
 
 
 }
@@ -57,6 +58,7 @@ window.addEventListener('keyup', (e) => {
  function startGame(){
    initLevel1();
    init();
+
     
     var element = document.getElementById("startScreen");
     element.classList.add("displayNone");

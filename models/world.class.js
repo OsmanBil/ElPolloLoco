@@ -11,7 +11,11 @@ class World {
     bottleBar = new BottleBar();
     throwableObjects = [];
 
+    throw_sound = new Audio('audio/throw.mp3');
+    hurt_sound = new Audio('audio/hurt.mp3');
+    chickenDead_sound = new Audio('audio/chickenDead.mp3');
 
+    ground = this.y < 380;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,6 +24,16 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+    }
+
+
+    isAboveGround() {
+        if (this instanceof ThrowableObject) {
+            return this.y < 380;
+        } else {
+
+            return this.y < 180;
+        }
     }
 
     setWorld() {
@@ -34,6 +48,7 @@ class World {
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
             this.checkCollisionBottleWithChicken();
+            //this.checkCollisionBottleWithGround();
 
 
         }, 200);
@@ -48,6 +63,7 @@ class World {
                 this.throwableObjects.push(bottle);
                 this.character.bottle -= 1;
                 this.bottleBar.setPercentageBottle(this.character.bottle);
+                this.throw_sound.play();
                 //        console.log('Collission with Character, bottle ', this.character.bottle);
             }
 
@@ -56,10 +72,12 @@ class World {
     }
 
 
+
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
+                this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
                 //       console.log('Collission with Character, energy ', this.character.energy);
             }
@@ -109,11 +127,14 @@ class World {
         */
 
         //this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-     
+        this.chickenDead_sound.play();
+
         setTimeout(() => {
             this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
     
         }, 400);
+
+        //this.throwableobjects.splice(this.throwableobjects.indexOf(bottle), 1);
     
     }
 
@@ -124,6 +145,15 @@ class World {
                 if (bottle.isColliding(enemy)) {
                     enemy.hitChicken();
                     this.chickenIsDead(enemy);
+                    setTimeout(() => {
+                        this.throwableObjects.splice(0,1)
+                
+                    }, 100);
+                }else if(!bottle.isAboveGround()){
+                    
+                        this.throwableObjects.splice(0,1)
+                
+                    
                 }
             });
 
@@ -133,6 +163,22 @@ class World {
 
     }
 
+
+  /*  checkCollisionBottleWithGround(y){
+
+        this.throwableObjects.forEach(bottle => {
+            if (bottle.isColliding(this.y)) {
+
+               
+
+                setTimeout(() => {
+                    this.throwableObjects.splice(0,1)
+            
+                }, 100);
+            }
+        });
+
+    }*/
 
 
 

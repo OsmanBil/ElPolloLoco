@@ -11,6 +11,11 @@ class MovableObject extends DrawableObject {
     bottle = 0;
 
     lastHit = 0;
+    takeBottle_sound = new Audio('audio/bottle.mp3');
+    takeCoin_sound = new Audio('audio/coin.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
+    
+
 
 
     applyGravity() {
@@ -20,16 +25,21 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+
     }
+
+
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
-            return true;
+            return this.y < 380;
         } else {
 
             return this.y < 180;
         }
     }
+
+
 
 
 
@@ -56,6 +66,7 @@ class MovableObject extends DrawableObject {
 
     takeCoin()  {
         this.coin += 1;
+        this.takeCoin_sound.play();
         if (this.coin > 10) {
             this.coin = 10;
         }
@@ -64,6 +75,7 @@ class MovableObject extends DrawableObject {
 
     takeBottle()  {
         this.bottle += 1;
+        this.takeBottle_sound.play();
         if (this.bottle > 5) {
             this.bottle = 5;
         }
@@ -119,6 +131,7 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.speedY = 30;
+
     }
 
 
