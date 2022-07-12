@@ -1,6 +1,7 @@
 class World {
 
     character = new Character();
+    boss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -82,28 +83,25 @@ class World {
         this.level.boss.forEach((boss) => {
         this.throwableObjects.forEach(bottle => {
             if (bottle.isColliding(boss)) {
-                boss.hitBoss();
-                this.bossIsDead(boss);
-                this.bossBar.setPercentage(this.boss.bossEnergy);
-                setTimeout(() => {
-                    this.throwableObjects.splice(0, 1)
+                this.boss.hitBoss();
+                
+                
+               // this.statusBar.setPercentage(this.character.energy);
+               // this.bossIsDead(boss);
+               this.bossBar.setPercentage(this.boss.bossEnergy);
+               
+               setTimeout(() => {
+                    this.throwableObjects.splice(0, 1);
 
                 }, 100);
+                
             } else if (!bottle.isAboveGround()) {
-
-                this.throwableObjects.splice(0, 1)
-
-
+                this.throwableObjects.splice(0, 1);
             }
         });
     });
 
     }
-
-
-
-
-
 
     checkCollisionsWithChickens() {
         this.level.chickens.forEach((chicken) => {
@@ -147,13 +145,7 @@ class World {
 
 
 
-    bossIsDead(boss) {
-        this.chickenDead_sound.play();
-        setTimeout(() => {
-            this.level.boss.splice(this.level.boss.indexOf(boss), 1);
-        }, 400);
-
-    }
+ 
 
 
     chickenIsDead(chicken) {

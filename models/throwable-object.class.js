@@ -55,7 +55,6 @@ class ThrowableObject extends MovableObject {
             } else {
 
                 this.playAnimation(this.IMAGES_BREAK);
- 
 
             }
 

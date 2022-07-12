@@ -64,21 +64,23 @@ class MovableObject extends DrawableObject {
 
 
     hitBoss(){
-        this.bossEnergy -= 20;
+        
+        this.bossEnergy -= 40;
         if (this.bossEnergy < 0) {
             this.bossEnergy = 0;
         } else {
             this.lastHit = new Date().getTime();
-        }
+        
+        } 
 
-        console.log('chicken is dead');
+        console.log(this.bossEnergy);
         //this.chickenIsDead(enemy);
        }
 
        hitChicken(){
-        this.bossEnergy -= 20;
-        if (this.bossEnergy < 0) {
-            this.bossEnergy = 0;
+        this.chickenEnergy -= 20;
+        if (this.chickenEnergy < 0) {
+            this.chickenEnergy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -121,8 +123,21 @@ class MovableObject extends DrawableObject {
 
 
 
-    bossIsDead(){
-        return this.energy == 0;
+    bossIsHurt(){
+        let timepassed = new Date().getTime() - this.lastHit; //difference in ms
+        timepassed = timepassed / 1000; //difference in s
+        return timepassed < 1;
+    }
+    
+
+    bossIsDead() {
+        return this.bossEnergy == 0;
+
+       /* this.chickenDead_sound.play();
+        setTimeout(() => {
+            this.level.boss.splice(this.level.boss.indexOf(boss), 1);
+        }, 400);
+*/
     }
 
     chickenIsDead(){
