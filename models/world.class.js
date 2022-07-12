@@ -7,15 +7,17 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    bossBar = new BossBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     throwableObjects = [];
-
     throw_sound = new Audio('audio/throw.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
     chickenDead_sound = new Audio('audio/chickenDead.mp3');
 
     ground = this.y < 380;
+
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -42,14 +44,14 @@ class World {
 
     run() {
         setInterval(() => {
-            //this.chickenTest();
-this.checkCollisionsWithChicken();
-            this.checkCollisions();
+
+            this.checkCollisionsWithChickens();
+            this.checkCollisionsWithBoss();
             this.checkThrowObjects();
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
             this.checkCollisionBottleWithChicken();
-            //this.checkCollisionBottleWithGround();
+
 
 
         }, 200);
@@ -74,46 +76,48 @@ this.checkCollisionsWithChicken();
 
 
 
-    checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.hurt_sound.play();
-                this.statusBar.setPercentage(this.character.energy);
-                //       console.log('Collission with Character, energy ', this.character.energy);
+
+    checkCollisionsWithBoss() {    
+        
+        this.level.boss.forEach((boss) => {
+        this.throwableObjects.forEach(bottle => {
+            if (bottle.isColliding(boss)) {
+                boss.hitBoss();
+                this.bossIsDead(boss);
+                this.bossBar.setPercentage(this.boss.bossEnergy);
+                setTimeout(() => {
+                    this.throwableObjects.splice(0, 1)
+
+                }, 100);
+            } else if (!bottle.isAboveGround()) {
+
+                this.throwableObjects.splice(0, 1)
+
+
             }
         });
+    });
+
     }
 
 
-    checkCollisionsWithChicken() {
-        this.level.chickens.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.hurt_sound.play();
-                this.statusBar.setPercentage(this.character.energy);
-                //       console.log('Collission with Character, energy ', this.character.energy);
-            }
-        });
-    }
 
-    /*chickenTest(){
-    this.level.chickens.forEach((chicken) =>{
-        chicken.world = this;
 
-    })}*/
-    
-/*checkCollisionsWithChicken() {
+
+
+    checkCollisionsWithChickens() {
         this.level.chickens.forEach((chicken) => {
             if (this.character.isColliding(chicken)) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
-                //       console.log('Collission with Character, energy ', this.character.energy);
+
             }
         });
     }
-    */
+
+
+
 
     checkCollisionWithCoin() {
         this.level.coin.forEach((coin) => {
@@ -142,74 +146,46 @@ this.checkCollisionsWithChicken();
     }
 
 
-    /* 
-    hitChicken(enemy){
-        console.log('chicken is dead');
-        this.chickenIsDead(enemy);
-    }
-    */
 
-
-    chickenIsDead(enemy){
-        /*
-        let timepassed = new Date().getTime() - this.lastHit; //difference in ms
-        timepassed = timepassed / 1000; //difference in s
-        return timepassed < 1;
-        */
-
-        //this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+    bossIsDead(boss) {
         this.chickenDead_sound.play();
-
         setTimeout(() => {
-            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-    
+            this.level.boss.splice(this.level.boss.indexOf(boss), 1);
         }, 400);
 
-        //this.throwableobjects.splice(this.throwableobjects.indexOf(bottle), 1);
-    
+    }
+
+
+    chickenIsDead(chicken) {
+        this.chickenDead_sound.play();
+        setTimeout(() => {
+            this.level.chickens.splice(this.level.chickens.indexOf(chicken), 1);
+        }, 400);
+
     }
 
 
     checkCollisionBottleWithChicken() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.chickens.forEach((chicken) => {
             this.throwableObjects.forEach(bottle => {
-                if (bottle.isColliding(enemy)) {
-                    enemy.hitChicken();
-                    this.chickenIsDead(enemy);
+                if (bottle.isColliding(chicken)) {
+                    chicken.hitChicken();
+                    this.chickenIsDead(chicken);
                     setTimeout(() => {
-                        this.throwableObjects.splice(0,1)
-                
+                        this.throwableObjects.splice(0, 1)
+
                     }, 100);
-                }else if(!bottle.isAboveGround()){
-                    
-                        this.throwableObjects.splice(0,1)
-                
-                    
+                } else if (!bottle.isAboveGround()) {
+
+                    this.throwableObjects.splice(0, 1)
+
+
                 }
             });
-
-
-
         });
-
     }
 
 
-  /*  checkCollisionBottleWithGround(y){
-
-        this.throwableObjects.forEach(bottle => {
-            if (bottle.isColliding(this.y)) {
-
-               
-
-                setTimeout(() => {
-                    this.throwableObjects.splice(0,1)
-            
-                }, 100);
-            }
-        });
-
-    }*/
 
 
 
@@ -222,15 +198,13 @@ this.checkCollisionsWithChicken();
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
 
-        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.chickens);
+        this.addObjectsToMap(this.level.boss);
 
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coin);
-
- this.addObjectsToMap(this.level.bottle);
-
- this.addObjectsToMap(this.level.chickens);
+        this.addObjectsToMap(this.level.bottle);
 
         // Draw wird immer wieder aufgerufen
         let self = this;
@@ -242,6 +216,7 @@ this.checkCollisionsWithChicken();
         this.ctx.translate(-this.camera_x, 0);
         // ----Space for fixed objects ----
         this.addToMap(this.statusBar);
+        this.addToMap(this.bossBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);

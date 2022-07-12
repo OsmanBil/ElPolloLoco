@@ -3,9 +3,6 @@ function initLevel1() {
 
     level1 = new Level(
         [
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
             new Endboss()
 
         ],
@@ -59,6 +56,12 @@ function initLevel1() {
             new Bottle(700, 200),
             new Bottle(800, 200)
 
+        ],
+        
+        [
+            new Chicken(),
+            new Chicken(),
+            new Chicken()
         ]
     );
 }

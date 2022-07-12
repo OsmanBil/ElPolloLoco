@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    bossEnergy = 100;
     chickenEnergy = 100;
     lastHitChicken = 0;
 
@@ -62,6 +63,29 @@ class MovableObject extends DrawableObject {
     }
 
 
+    hitBoss(){
+        this.bossEnergy -= 20;
+        if (this.bossEnergy < 0) {
+            this.bossEnergy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+
+        console.log('chicken is dead');
+        //this.chickenIsDead(enemy);
+       }
+
+       hitChicken(){
+        this.bossEnergy -= 20;
+        if (this.bossEnergy < 0) {
+            this.bossEnergy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+
+        console.log('chicken is dead');
+        //this.chickenIsDead(enemy);
+       }
 
 
     takeCoin()  {
@@ -95,17 +119,10 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    hitChicken(enemy){
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
 
-        console.log('chicken is dead');
-        //this.chickenIsDead(enemy);
-   
+
+    bossIsDead(){
+        return this.energy == 0;
     }
 
     chickenIsDead(){
