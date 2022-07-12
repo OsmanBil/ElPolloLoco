@@ -42,7 +42,8 @@ class World {
 
     run() {
         setInterval(() => {
-
+            //this.chickenTest();
+this.checkCollisionsWithChicken();
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollisionWithCoin();
@@ -83,6 +84,36 @@ class World {
             }
         });
     }
+
+
+    checkCollisionsWithChicken() {
+        this.level.chickens.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.hurt_sound.play();
+                this.statusBar.setPercentage(this.character.energy);
+                //       console.log('Collission with Character, energy ', this.character.energy);
+            }
+        });
+    }
+
+    /*chickenTest(){
+    this.level.chickens.forEach((chicken) =>{
+        chicken.world = this;
+
+    })}*/
+    
+/*checkCollisionsWithChicken() {
+        this.level.chickens.forEach((chicken) => {
+            if (this.character.isColliding(chicken)) {
+                this.character.hit();
+                this.hurt_sound.play();
+                this.statusBar.setPercentage(this.character.energy);
+                //       console.log('Collission with Character, energy ', this.character.energy);
+            }
+        });
+    }
+    */
 
     checkCollisionWithCoin() {
         this.level.coin.forEach((coin) => {
@@ -190,13 +221,16 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+
         this.addObjectsToMap(this.level.enemies);
+
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coin);
 
-        this.addObjectsToMap(this.level.bottle);
+ this.addObjectsToMap(this.level.bottle);
 
+ this.addObjectsToMap(this.level.chickens);
 
         // Draw wird immer wieder aufgerufen
         let self = this;
