@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     width = 250;
     y = 55;
 
+
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G6.png',
@@ -19,7 +20,7 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G21.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G22.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G23.png'
-        
+
 
     ];
 
@@ -32,7 +33,7 @@ class Endboss extends MovableObject {
 
 
 
-    constructor(){
+    constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
@@ -46,31 +47,20 @@ class Endboss extends MovableObject {
     animate() {
 
 
-
-
-
         setInterval(() => {
-
             if (this.bossIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                console.log('Spiel zu ende');
-
-
-            } else if(this.bossIsHurt()){
+                this.speed = 0;
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                console.log('Boss verletzt');
             }
-            else 
-           {
-                    this.playAnimation(this.IMAGES_WALKING);
-                
+            else {
+                this.playAnimation(this.IMAGES_WALKING);
             }
+
+
         }, 200);
 
-
-
     }
-
-
 
 }

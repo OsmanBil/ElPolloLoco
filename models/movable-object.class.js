@@ -5,8 +5,9 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     bossEnergy = 100;
-    chickenEnergy = 100;
+    chickenEnergy = 5;
     lastHitChicken = 0;
+
 
     coin = 0;
     bottle = 0;
@@ -15,7 +16,7 @@ class MovableObject extends DrawableObject {
     takeBottle_sound = new Audio('audio/bottle.mp3');
     takeCoin_sound = new Audio('audio/coin.mp3');
     jump_sound = new Audio('audio/jump.mp3');
-    
+
 
 
 
@@ -49,8 +50,15 @@ class MovableObject extends DrawableObject {
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
-            this.x < mo.x + mo.width&&
+            this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height;
+    }
+
+    isCollidingAtTop(mo){
+        return this.y + this.height > mo.y &&
+        this.y + this.height < mo.y + mo.height && 
+        this.x + this.width > mo.x &&
+        this.x + this.width < (mo.x + mo.width + 70);
     }
 
     hit() {
@@ -63,50 +71,57 @@ class MovableObject extends DrawableObject {
     }
 
 
-    hitBoss(){
-        
+    hitBoss() {
         this.bossEnergy -= 40;
         if (this.bossEnergy < 0) {
             this.bossEnergy = 0;
         } else {
             this.lastHit = new Date().getTime();
-        
-        } 
+
+        }
+
+
+ 
 
         console.log(this.bossEnergy);
-        //this.chickenIsDead(enemy);
-       }
 
-       hitChicken(){
-        this.chickenEnergy -= 20;
+    }
+
+
+
+
+
+
+
+    hitChicken() {
+        this.chickenEnergy -= 5;
         if (this.chickenEnergy < 0) {
             this.chickenEnergy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
-
         console.log('chicken is dead');
-        //this.chickenIsDead(enemy);
-       }
+
+    }
 
 
-    takeCoin()  {
+    takeCoin() {
         this.coin += 1;
         this.takeCoin_sound.play();
         if (this.coin > 10) {
             this.coin = 10;
         }
-    
+
     }
 
-    takeBottle()  {
+    takeBottle() {
         this.bottle += 1;
         this.takeBottle_sound.play();
         if (this.bottle > 5) {
             this.bottle = 5;
         }
-        
-    
+
+
     }
 
 
@@ -121,28 +136,26 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    bossIsDead() {
+        return this.bossEnergy == 0;
+    }
+
+    chickenIsDead() {
+        return this.chickenEnergy == 0;
+    }
 
 
-    bossIsHurt(){
+    bossIsHurt() {
+
         let timepassed = new Date().getTime() - this.lastHit; //difference in ms
         timepassed = timepassed / 1000; //difference in s
         return timepassed < 1;
     }
-    
 
-    bossIsDead() {
-        return this.bossEnergy == 0;
 
-       /* this.chickenDead_sound.play();
-        setTimeout(() => {
-            this.level.boss.splice(this.level.boss.indexOf(boss), 1);
-        }, 400);
-*/
-    }
 
-    chickenIsDead(){
-        return this.energy == 0;
-    }
+
+
 
 
     moveRight(params) {

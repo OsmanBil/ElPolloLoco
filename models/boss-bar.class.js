@@ -18,11 +18,11 @@ class BossBar extends DrawableObject {
         this.y = 0;
         this.width = 200;
         this.height = 60; 
-        this.setPercentage(100);
+        this.setPercentageBoss(100);
     }
 
     //serPercentage(50)
-    setPercentage(percentage) {
+    setPercentageBoss(percentage) {
         this.percentage = percentage;  // => 0...5
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];

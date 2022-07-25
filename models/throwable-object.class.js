@@ -1,6 +1,7 @@
 class ThrowableObject extends MovableObject {
 
     bottleBreak = false;
+    world;
 
     IMAGES_BREAK = [
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 7.png',
@@ -52,7 +53,10 @@ class ThrowableObject extends MovableObject {
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_ROTATE);
 
-            } else {
+            } else if(this.bossIsHurt()){
+                this.playAnimation(this.IMAGES_BREAK);
+            }
+            else{
 
                 this.playAnimation(this.IMAGES_BREAK);
 

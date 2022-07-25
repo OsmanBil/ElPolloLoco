@@ -2,6 +2,7 @@ class World {
 
     character = new Character();
     boss = new Endboss();
+    miniChicken = new MiniChicken();
     level = level1;
     canvas;
     ctx;
@@ -17,6 +18,12 @@ class World {
     chickenDead_sound = new Audio('audio/chickenDead.mp3');
 
     ground = this.y < 380;
+    miniChickenx = 500;
+
+
+    spawnedChicks = [];
+
+
 
 
 
@@ -41,6 +48,8 @@ class World {
 
     setWorld() {
         this.character.world = this;
+
+
     }
 
     run() {
@@ -52,6 +61,9 @@ class World {
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
             this.checkCollisionBottleWithChicken();
+
+            this.checkCollisionsWithMiniChickens();
+            this.checkCollisionBottleWithMiniChicken();
 
 
 
@@ -78,30 +90,50 @@ class World {
 
 
 
-    checkCollisionsWithBoss() {    
-        
-        this.level.boss.forEach((boss) => {
-        this.throwableObjects.forEach(bottle => {
-            if (bottle.isColliding(boss)) {
-                this.boss.hitBoss();
-                
-                
-               // this.statusBar.setPercentage(this.character.energy);
-               // this.bossIsDead(boss);
-               this.bossBar.setPercentage(this.boss.bossEnergy);
-               
-               setTimeout(() => {
-                    this.throwableObjects.splice(0, 1);
+  checkCollisionsWithMiniChickens() {
+        this.spawnedChicks.forEach((miniChicken) => {
 
-                }, 100);
-                
-            } else if (!bottle.isAboveGround()) {
-                this.throwableObjects.splice(0, 1);
+            
+            if(this.character.isCollidingAtTop(miniChicken) ){
+                miniChicken.hitChicken();
+                this.miniChickenIsDead(miniChicken);
+            }else if (this.character.isColliding(miniChicken) && this.character.y <= 100) {
+                this.character.hit();
+                this.hurt_sound.play();
+                this.statusBar.setPercentage(this.character.energy);
+                 console.log('Collission with Character');
+
             }
         });
-    });
-
     }
+
+
+
+    checkCollisionBottleWithMiniChicken() {
+        this.spawnedChicks.forEach((miniChicken) => {
+            this.throwableObjects.forEach(bottle => {
+                if (bottle.isColliding(miniChicken)) {
+                    miniChicken.hitChicken();
+                    this.miniChickenIsDead(miniChicken);
+                    setTimeout(() => {
+                        this.throwableObjects.splice(0, 1)
+                    }, 100);
+                } else if (!bottle.isAboveGround()) {
+                    this.throwableObjects.splice(0, 1)
+                }
+            });
+        });
+    }
+
+
+
+
+
+
+
+
+
+
 
     checkCollisionsWithChickens() {
         this.level.chickens.forEach((chicken) => {
@@ -114,6 +146,29 @@ class World {
         });
     }
 
+    checkCollisionsWithBoss() {
+        this.level.boss.forEach((boss) => {
+            this.throwableObjects.forEach(bottle => {
+                if (bottle.isColliding(boss)) {
+                    this.bossBar.setPercentageBoss(this.boss.bossEnergy);
+                    this.boss.hitBoss();  //for Animationens
+                    boss.hitBoss(); //for Energy bar
+
+                    this.throwableObjects.splice(0, 1);
+
+
+                    this.miniChickenGenerator();
+
+
+
+
+
+                } else if (!bottle.isAboveGround()) {
+                    this.throwableObjects.splice(0, 1);
+                }
+            });
+        });
+    }
 
 
 
@@ -122,7 +177,6 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.character.takeCoin();
                 this.coinBar.setPercentageCoin(this.character.coin);
-                //  console.log('Collission with Character, coin ', this.character.coin);
                 this.level.coin.splice(this.level.coin.indexOf(coin), 1);
 
             }
@@ -145,13 +199,20 @@ class World {
 
 
 
- 
 
 
     chickenIsDead(chicken) {
         this.chickenDead_sound.play();
         setTimeout(() => {
             this.level.chickens.splice(this.level.chickens.indexOf(chicken), 1);
+        }, 400);
+
+    }
+
+    miniChickenIsDead(miniChicken) {
+        this.chickenDead_sound.play();
+        setTimeout(() => {
+            this.spawnedChicks.splice(this.spawnedChicks.indexOf(miniChicken), 1);
         }, 400);
 
     }
@@ -165,13 +226,9 @@ class World {
                     this.chickenIsDead(chicken);
                     setTimeout(() => {
                         this.throwableObjects.splice(0, 1)
-
                     }, 100);
                 } else if (!bottle.isAboveGround()) {
-
                     this.throwableObjects.splice(0, 1)
-
-
                 }
             });
         });
@@ -189,10 +246,13 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-
         this.addObjectsToMap(this.level.chickens);
-        this.addObjectsToMap(this.level.boss);
 
+
+
+        this.addObjectsToMap(this.spawnedChicks);
+
+        this.addObjectsToMap(this.level.boss);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coin);
@@ -215,7 +275,26 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
 
 
+
+
+
+
+
+
+
     }
+
+    miniChickenGenerator() {
+        this.spawnedChicks.push(new MiniChicken());
+        setTimeout(() => {
+            this.currentImage = 0;
+        }, 400);
+
+    }
+
+
+
+
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
