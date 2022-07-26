@@ -23,7 +23,7 @@ class World {
 
     spawnedChicks = [];
 
-
+inek = true;
 
 
 
@@ -118,11 +118,11 @@ class World {
         this.spawnedChicks.forEach((miniChicken) => {
 
             
-            if(this.character.isCollidingAtTop(miniChicken) && !this.character.y <= 181){
+            if(this.character.isCollidingAtTop(miniChicken)  && !this.character.y <= 180 ){
                 miniChicken.hitChicken();
                 this.miniChickenIsDead(miniChicken);
                 
-            }else if (this.character.isColliding(miniChicken)) {
+            }else if (this.character.isColliding(miniChicken) ) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
@@ -138,11 +138,16 @@ class World {
 
     checkCollisionsWithChickens() {
         this.level.chickens.forEach((chicken) => {
-            if(this.character.isCollidingAtTop(chicken) && !this.character.y <= 181){
+            if(this.character.isCollidingAtTop(chicken) && !this.character.y <= 175 ){
                 chicken.hitChicken();
                 this.chickenIsDead(chicken);
+
+                setTimeout(() => {
+                    
+                }, 300);
                 
-            }else if  (this.character.isColliding(chicken)) {
+                
+            }else if  (this.character.isColliding(chicken)  ) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);

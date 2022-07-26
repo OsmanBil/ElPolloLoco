@@ -65,7 +65,7 @@ class MovableObject extends DrawableObject {
         return this.y + this.height > mo.y &&
         this.y + this.height < mo.y + mo.height && 
         this.x + this.width > mo.x &&
-        this.x + this.width < (mo.x + mo.width + 70);
+        this.x + this.width < (mo.x + mo.width + 50);
         
     }
 

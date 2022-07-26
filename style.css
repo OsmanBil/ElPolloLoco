@@ -1,10 +1,23 @@
 body {
-    background-color: rgb(224, 182, 73);
+    background-image: url('img/desert.png');
+    background-position: center;
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
     align-items: center;
+    font-family: 'zabars', 'arial';
 }
+
+
+@font-face {
+    font-family: 'zabars';
+    src: url('fonts/Zabars.ttf');
+  }
+  
+  div {
+    font-family: zabars;
+  }
+
 
 .movement {
     background-color: rgb(128, 95, 5);
@@ -32,7 +45,51 @@ body {
 
 canvas {
     background-color: black;
+    display: block;
 }
+
+
+@media only screen and (max-width: 720px){
+    canvas{
+        width: 100%;
+    }
+
+    .startScreen{
+        width: 100%;
+
+    }
+
+    .movement{
+        width: 100%;
+    }
+
+    .title{
+        display: none;
+    }
+   
+}
+
+@media only screen and (max-height: 480px){
+    canvas{
+        height: 85vh;
+    }
+
+    .startScreen{
+        height: 85vh;
+
+    }
+
+
+
+    .title{
+        display: none;
+    }
+   
+}
+
+
+
+
 
 .displayNone{
     display: none;
