@@ -55,10 +55,18 @@ class MovableObject extends DrawableObject {
     }
 
     isCollidingAtTop(mo){
+        /*
+        return this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x + mo.width &&
+        this.y < mo.y + mo.height;
+        */
+        
         return this.y + this.height > mo.y &&
         this.y + this.height < mo.y + mo.height && 
         this.x + this.width > mo.x &&
         this.x + this.width < (mo.x + mo.width + 70);
+        
     }
 
     hit() {
