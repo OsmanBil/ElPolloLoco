@@ -16,14 +16,9 @@ class World {
     throw_sound = new Audio('audio/throw.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
     chickenDead_sound = new Audio('audio/chickenDead.mp3');
-
     ground = this.y < 380;
     miniChickenx = 500;
-
-
     spawnedChicks = [];
-
-inek = true;
 
 
 
@@ -48,20 +43,16 @@ inek = true;
 
     setWorld() {
         this.character.world = this;
-
-
     }
 
     run() {
         setInterval(() => {
-
             this.checkCollisionsWithChickens();
             this.checkCollisionsWithBoss();
             this.checkThrowObjects();
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
             this.checkCollisionBottleWithChicken();
-
             this.checkCollisionsWithMiniChickens();
             this.checkCollisionBottleWithMiniChicken();
 
@@ -73,18 +64,14 @@ inek = true;
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-
             if (this.character.bottle >= 1) {
                 let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
                 this.throwableObjects.push(bottle);
                 this.character.bottle -= 1;
                 this.bottleBar.setPercentageBottle(this.character.bottle);
                 this.throw_sound.play();
-                //        console.log('Collission with Character, bottle ', this.character.bottle);
             }
-
         }
-
     }
 
 
@@ -117,16 +104,16 @@ inek = true;
     checkCollisionsWithMiniChickens() {
         this.spawnedChicks.forEach((miniChicken) => {
 
-            
-            if(this.character.isCollidingAtTop(miniChicken)  && !this.character.y <= 180 ){
+
+            if (this.character.isCollidingAtTop(miniChicken) && !this.character.y <= 180) {
                 miniChicken.hitChicken();
                 this.miniChickenIsDead(miniChicken);
-                
-            }else if (this.character.isColliding(miniChicken) ) {
+
+            } else if (this.character.isColliding(miniChicken)) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
-                 console.log('Collission with Character');
+                console.log('Collission with Character');
 
             }
         });
@@ -138,16 +125,22 @@ inek = true;
 
     checkCollisionsWithChickens() {
         this.level.chickens.forEach((chicken) => {
-            if(this.character.isCollidingAtTop(chicken) && !this.character.y <= 175 ){
+            if (this.character.isCollidingAtTop(chicken) && !this.character.y <= 180) {
                 chicken.hitChicken();
                 this.chickenIsDead(chicken);
 
+                /*let timepassed = new Date().getTime() - this.lastHit; //difference in ms
+                timepassed = timepassed / 1000; //difference in s
+                return timepassed < 1;
+*/
+                /*
                 setTimeout(() => {
-                    
-                }, 300);
-                
-                
-            }else if  (this.character.isColliding(chicken)  ) {
+
+                }, 500);
+                */
+
+
+            } else if (this.character.isColliding(chicken)) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
@@ -163,16 +156,8 @@ inek = true;
                     this.bossBar.setPercentageBoss(this.boss.bossEnergy);
                     this.boss.hitBoss();  //for Animationens
                     boss.hitBoss(); //for Energy bar
-
                     this.throwableObjects.splice(0, 1);
-
-
                     this.miniChickenGenerator();
-
-
-
-
-
                 } else if (!bottle.isAboveGround()) {
                     this.throwableObjects.splice(0, 1);
                 }
@@ -244,24 +229,13 @@ inek = true;
         });
     }
 
-
-
-
-
-
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.chickens);
-
-
-
         this.addObjectsToMap(this.spawnedChicks);
-
         this.addObjectsToMap(this.level.boss);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
@@ -283,15 +257,6 @@ inek = true;
         this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
-
-
-
-
-
-
-
-
-
     }
 
     miniChickenGenerator() {
@@ -299,11 +264,7 @@ inek = true;
         setTimeout(() => {
             this.currentImage = 0;
         }, 400);
-
     }
-
-
-
 
 
     addObjectsToMap(objects) {

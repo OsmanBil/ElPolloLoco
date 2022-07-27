@@ -3,6 +3,8 @@ class ThrowableObject extends MovableObject {
     bottleBreak = false;
     world;
 
+    
+
     IMAGES_BREAK = [
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 7.png',
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 8.png',
@@ -39,9 +41,16 @@ class ThrowableObject extends MovableObject {
 
 
         setInterval(() => {
-            if (this.isAboveGround()) {
-                this.x += 10;
-            }
+
+            if (this.isAboveGround())
+
+                if (!this.otherDirection) {
+                    this.x += 10;
+                } else if(this.otherDirection){
+                    
+                    this.x -= 10;
+                }
+
         }, 25);
 
     }
@@ -53,10 +62,10 @@ class ThrowableObject extends MovableObject {
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_ROTATE);
 
-            } else if(this.bossIsHurt()){
+            } else if (this.bossIsHurt()) {
                 this.playAnimation(this.IMAGES_BREAK);
             }
-            else{
+            else {
 
                 this.playAnimation(this.IMAGES_BREAK);
 

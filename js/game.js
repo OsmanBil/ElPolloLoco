@@ -63,6 +63,13 @@ window.addEventListener('keyup', (e) => {
     var element = document.getElementById("startScreen");
     element.classList.add("displayNone");
 
+    var element = document.getElementById("theEndScreen");
+    element.classList.remove("displayNone");
+
+    var element = document.getElementById("theEndScreenLost");
+    element.classList.remove("displayNone");
+
+
     var element = document.getElementById("canvas");
     element.classList.remove("displayNone");
 }

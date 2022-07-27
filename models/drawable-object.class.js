@@ -18,7 +18,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx){
-
+/*
         if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof MiniChicken){
 
             ctx.beginPath();
@@ -27,7 +27,7 @@ class DrawableObject {
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
-
+*/
     }
 
     loadImages(arr) {

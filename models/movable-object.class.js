@@ -54,25 +54,32 @@ class MovableObject extends DrawableObject {
             this.y < mo.y + mo.height;
     }
 
-    isCollidingAtTop(mo){
+    isCollidingAtTop(mo) {
         /*
-        return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x + mo.width &&
-        this.y < mo.y + mo.height;
-        */
-        
         return this.y + this.height > mo.y &&
         this.y + this.height < mo.y + mo.height && 
         this.x + this.width > mo.x &&
-        this.x + this.width < (mo.x + mo.width + 50);
-        
+        this.x + this.width < (mo.x + mo.width + 70);
+        */
+        return   this.x + mo.x + mo.width &&
+                 this.y + this.height > mo.y && 
+        this.x + this.width > mo.x &&
+          
+           
+         this.y + mo.y + mo.height;
+
     }
 
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
+            var element = document.getElementById("theEndScreenLost");
+            element.classList.remove("displayNone");
+            element.classList.add('theEndScreenLost');
+
+            var element = document.getElementById("canvas");
+            element.classList.add("displayNone");
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -83,13 +90,20 @@ class MovableObject extends DrawableObject {
         this.bossEnergy -= 40;
         if (this.bossEnergy < 0) {
             this.bossEnergy = 0;
+
+            var element = document.getElementById("theEndScreen");
+            element.classList.remove("displayNone");
+            element.classList.add('theEndScreen');
+
+            var element = document.getElementById("canvas");
+            element.classList.add("displayNone");
         } else {
             this.lastHit = new Date().getTime();
 
         }
 
 
- 
+
 
         console.log(this.bossEnergy);
 
@@ -142,10 +156,13 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+
+
     }
 
     bossIsDead() {
         return this.bossEnergy == 0;
+
     }
 
     chickenIsDead() {

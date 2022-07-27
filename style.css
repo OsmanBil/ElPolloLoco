@@ -42,6 +42,38 @@ body {
 
 }
 
+.theEndScreen{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    background-image: url("./img/9.Intro _ Outro Image/_Game over_ screen/4.Game over!.png");
+
+    
+    background-size: 720px 480px;
+    background-position: center;
+
+    width: 720px;
+    height: 480px;
+}
+
+.theEndScreenLost{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    background-image: url("./img/9.Intro _ Outro Image/_Game over_ screen/2.oh no you lost!.png");
+
+    
+    background-size: 720px 480px;
+    background-position: center;
+
+    width: 720px;
+    height: 480px;
+}
+
 
 canvas {
     background-color: black;
