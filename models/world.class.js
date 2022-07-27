@@ -129,18 +129,8 @@ class World {
                 chicken.hitChicken();
                 this.chickenIsDead(chicken);
 
-                /*let timepassed = new Date().getTime() - this.lastHit; //difference in ms
-                timepassed = timepassed / 1000; //difference in s
-                return timepassed < 1;
-*/
-                /*
-                setTimeout(() => {
 
-                }, 500);
-                */
-
-
-            } else if (this.character.isColliding(chicken)) {
+            } else if (this.character.isColliding(chicken) && this.character.y <= 180) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
@@ -149,6 +139,26 @@ class World {
         });
     }
 
+
+
+    chickenIsDead(chicken) {
+        this.chickenDead_sound.play();
+        setTimeout(() => {
+            this.level.chickens.splice(this.level.chickens.indexOf(chicken), 1);
+        }, 300);
+
+    }
+
+    miniChickenIsDead(miniChicken) {
+        this.chickenDead_sound.play();
+        setTimeout(() => {
+            this.spawnedChicks.splice(this.spawnedChicks.indexOf(miniChicken), 1);
+        }, 300);
+
+    }
+
+
+
     checkCollisionsWithBoss() {
         this.level.boss.forEach((boss) => {
             this.throwableObjects.forEach(bottle => {
@@ -156,6 +166,9 @@ class World {
                     this.bossBar.setPercentageBoss(this.boss.bossEnergy);
                     this.boss.hitBoss();  //for Animationens
                     boss.hitBoss(); //for Energy bar
+
+
+                    
                     this.throwableObjects.splice(0, 1);
                     this.miniChickenGenerator();
                 } else if (!bottle.isAboveGround()) {
@@ -192,25 +205,6 @@ class World {
         });
     }
 
-
-
-
-
-    chickenIsDead(chicken) {
-        this.chickenDead_sound.play();
-        setTimeout(() => {
-            this.level.chickens.splice(this.level.chickens.indexOf(chicken), 1);
-        }, 150);
-
-    }
-
-    miniChickenIsDead(miniChicken) {
-        this.chickenDead_sound.play();
-        setTimeout(() => {
-            this.spawnedChicks.splice(this.spawnedChicks.indexOf(miniChicken), 1);
-        }, 150);
-
-    }
 
 
     checkCollisionBottleWithChicken() {
