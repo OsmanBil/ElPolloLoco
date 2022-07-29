@@ -93,7 +93,7 @@ class MovableObject extends DrawableObject {
         
         return this.x + this.width > mo.x &&
         this.y + this.height > mo.y &&
-        this.x + this.width < (mo.x + mo.width) + 9 &&
+        this.x + this.width < (mo.x + mo.width) + 45 &&
         this.y + this.height < mo.y + mo.height;
 
     }
@@ -119,12 +119,24 @@ class MovableObject extends DrawableObject {
         if (this.bossEnergy < 0) {
             this.bossEnergy = 0;
 
-            var element = document.getElementById("theEndScreen");
-            element.classList.remove("displayNone");
-            element.classList.add('theEndScreen');
+           // removeListener();
 
-            var element = document.getElementById("canvas");
-            element.classList.add("displayNone");
+
+            setTimeout(() => {
+                var element = document.getElementById("theEndScreen");
+                element.classList.remove("displayNone");
+                element.classList.add('theEndScreen');
+    
+                var element = document.getElementById("canvas");
+                element.classList.add("displayNone");
+            }, 5000);
+            
+
+
+
+          
+
+
         } else {
             this.lastHit = new Date().getTime();
 
@@ -137,7 +149,30 @@ class MovableObject extends DrawableObject {
 
     }
 
+removeListener(){
+            
+    removeEventListener('keydown', (e) => {
+        if(e.keyCode == 39){
+            keyboard.RIGHT = true;
+        }
+        if(e.keyCode == 37){
+            keyboard.LEFT = true;
+        }
+        if(e.keyCode == 38){
+            keyboard.UP = true;
+        }
+        if(e.keyCode == 40){
+            keyboard.DOWN = true;
+        }
+        if(e.keyCode == 32){
+            keyboard.SPACE = true;
+        }
+        if(e.keyCode == 68){
+            keyboard.D = true;
+        }
+    });
 
+}
 
 
 

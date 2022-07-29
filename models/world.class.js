@@ -51,21 +51,15 @@ class World {
         setInterval(() => {
 
             this.checkCollisionsWithChickens();
-
-
-
-
-        }, 90);
-
-        setInterval(() => {
-
-
-            this.checkCollisionWithCoin();
-            this.checkCollisionWithBottle();
             this.checkCollisionsWithMiniChickens();
 
 
 
+        }, 80);
+
+        setInterval(() => {
+            this.checkCollisionWithCoin();
+            this.checkCollisionWithBottle();
         }, 30);
 
 
@@ -86,11 +80,24 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D) {
             if (this.character.bottle >= 1) {
-                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-                this.throwableObjects.push(bottle);
-                this.character.bottle -= 1;
-                this.bottleBar.setPercentageBottle(this.character.bottle);
-                this.throw_sound.play();
+
+                if(!this.character.otherDirectionChar){
+                    let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+                    this.throwableObjects.push(bottle);
+                    this.character.bottle -= 1;
+                    this.bottleBar.setPercentageBottle(this.character.bottle);
+                    this.throw_sound.play();
+                }else{
+                    let bottle = new ThrowableObject(this.character.x - 50, this.character.y + 100)
+                    this.throwableObjects.push(bottle);
+                    this.character.bottle -= 1;
+                    this.bottleBar.setPercentageBottle(this.character.bottle);
+                    this.throw_sound.play();
+                }
+                
+
+
+
             }
         }
     }
@@ -198,9 +205,12 @@ class World {
                     this.boss.hitBoss();  //for Animationens
                     boss.hitBoss(); //for Energy bar
 
+                    setTimeout(() => {
+                        this.throwableObjects.splice(0, 1)
+                    }, 100);
 
                     
-                    this.throwableObjects.splice(0, 1);
+      
                     this.miniChickenGenerator();
                 } else if (!bottle.isAboveGround()) {
                     this.throwableObjects.splice(0, 1);
