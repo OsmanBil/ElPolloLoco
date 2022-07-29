@@ -4,8 +4,15 @@ class Chicken extends MovableObject {
     width = 80;
     y = 360;
 
-   
+    offsetleft = 20;
 
+
+    offset = {
+        top: 20,
+        right: 20,
+        left: 20,
+        bottom: 20
+    }
 
     IMAGES_WALKING = ['img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
         'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png',

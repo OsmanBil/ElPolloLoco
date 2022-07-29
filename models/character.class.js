@@ -6,6 +6,17 @@ class Character extends MovableObject {
     coin = 0;
     bottle = 20;
 
+    otherDirectionChar = false;
+
+    offsetleft = 20;
+
+
+    offset = {
+        top: 20,
+        right: 20,
+        left: 20,
+        bottom: 20
+    }
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
@@ -76,6 +87,7 @@ class Character extends MovableObject {
                     this.walking_sound.play();
                 }
                 this.otherDirection = false;
+                this.otherDirectionChar = false;
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
@@ -84,6 +96,7 @@ class Character extends MovableObject {
                     this.walking_sound.play();
                 }
                 this.otherDirection = true;
+                this.otherDirectionChar = true;
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {

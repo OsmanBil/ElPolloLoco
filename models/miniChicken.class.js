@@ -4,7 +4,12 @@ class MiniChicken extends MovableObject {
     width = 80;
     y = 360;
 
-   
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
 
     IMAGES_WALKING = ['img/3.Secuencias_Enemy_básico/Versión_pollito/1.Paso_derecho.png',

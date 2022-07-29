@@ -20,6 +20,8 @@ class World {
     miniChickenx = 500;
     spawnedChicks = [];
 
+    test = false;
+
 
 
     constructor(canvas, keyboard) {
@@ -58,7 +60,7 @@ class World {
 
 
 
-        }, 200);
+        }, 60);
     }
 
 
@@ -125,12 +127,20 @@ class World {
 
     checkCollisionsWithChickens() {
         this.level.chickens.forEach((chicken) => {
-            if (this.character.isCollidingAtTop(chicken) && !this.character.y <= 180) {
+            if (this.character.isCollidingAtTop(chicken) && this.character.y < 180) {
                 chicken.hitChicken();
                 this.chickenIsDead(chicken);
 
+                this.test = true;
+                this.character.y += 1;
+               
+                setTimeout(() => {
+                    this.test = false;
+                   this.character.y -= 1;
+                }, 400);
 
-            } else if (this.character.isColliding(chicken) && this.character.y <= 180) {
+
+            } else if (this.test == false &&   this.character.isColliding(chicken) && this.character.y == 180) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);

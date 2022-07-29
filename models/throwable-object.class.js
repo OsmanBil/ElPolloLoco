@@ -44,9 +44,12 @@ class ThrowableObject extends MovableObject {
 
             if (this.isAboveGround())
 
-                if (!this.otherDirection) {
-                    this.x += 10;
-                } else if(this.otherDirection){
+                if (!world.character.otherDirectionChar) {
+                    
+                    
+                        this.x += 10;
+                  
+                } else if(world.character.otherDirectionChar){
                     
                     this.x -= 10;
                 }

@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject {
-    speed = 0.15;
+    speed = 0.015;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
@@ -17,7 +17,12 @@ class MovableObject extends DrawableObject {
     takeCoin_sound = new Audio('audio/coin.mp3');
     jump_sound = new Audio('audio/jump.mp3');
 
-
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
 
     applyGravity() {
@@ -48,19 +53,43 @@ class MovableObject extends DrawableObject {
 
     // character.isColliding(chicken);
     isColliding(mo) {
+        
+        /*
+        return mo.x + mo.width - mo.offsetWidth > this.x &&
+        mo.y + mo.height >= this.y &&
+        mo.x + mo.offsetWidth < this.x + this.width &&
+        mo.y + mo.height - this.y ;
+*/
+       return this.x + this.width - this.offset.right > mo.x + mo.offsetleft &&
+        this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+        this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+        this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+
+
+        /*
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height;
+            */
     }
 
     isCollidingAtTop(mo) {
-        
+        /*
+        return this.x + this.width > mo.x &&
+        this.y + this.height >= mo.y +20 &&
+        this.y + this.height <= mo.y +40 &&
+        this.x < mo.x + mo.width;
+*/
 
+        
         return this.x + this.width > mo.x &&
         this.y + this.height > mo.y &&
-        this.x + this.width < (mo.x + mo.width + 65) &&
+        this.x + this.width < (mo.x + mo.width) + 9 &&
         this.y + this.height < mo.y + mo.height;
+
+
+        
    
     }
 
