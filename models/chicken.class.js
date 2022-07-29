@@ -4,6 +4,8 @@ class Chicken extends MovableObject {
     width = 80;
     y = 360;
 
+   // chickenIsDeadStatus = false;
+
     offsetleft = 20;
 
 
@@ -47,6 +49,7 @@ class Chicken extends MovableObject {
         setInterval(() => {
             if (this.chickenIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+              //  this.chickenIsDeadStatus = true;
                 this.speed = 0;
             }else{
                 this.playAnimation(this.IMAGES_WALKING);

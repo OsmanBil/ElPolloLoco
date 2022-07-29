@@ -3,6 +3,7 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    accelerationBottle = 5;
     energy = 100;
     bossEnergy = 100;
     chickenEnergy = 5;
@@ -35,6 +36,15 @@ class MovableObject extends DrawableObject {
 
     }
 
+    applyGravityBottle() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.accelerationBottle;
+            }
+        }, 1000 / 25);
+
+    }
 
 
     isAboveGround() {
@@ -53,25 +63,23 @@ class MovableObject extends DrawableObject {
 
     // character.isColliding(chicken);
     isColliding(mo) {
-        
-        /*
-        return mo.x + mo.width - mo.offsetWidth > this.x &&
-        mo.y + mo.height >= this.y &&
-        mo.x + mo.offsetWidth < this.x + this.width &&
-        mo.y + mo.height - this.y ;
-*/
-       return this.x + this.width - this.offset.right > mo.x + mo.offsetleft &&
+
+
+
+
+
+  /*     return this.x + this.width - this.offset.right > mo.x + mo.offsetleft &&
         this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
         this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
         this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+*/
 
-
-        /*
+       
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height;
-            */
+            
     }
 
     isCollidingAtTop(mo) {
@@ -88,9 +96,6 @@ class MovableObject extends DrawableObject {
         this.x + this.width < (mo.x + mo.width) + 9 &&
         this.y + this.height < mo.y + mo.height;
 
-
-        
-   
     }
 
     hit() {

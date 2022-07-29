@@ -3,7 +3,14 @@ class ThrowableObject extends MovableObject {
     bottleBreak = false;
     world;
 
-    
+    offsetleft = 20;
+
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
     IMAGES_BREAK = [
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 7.png',
@@ -35,23 +42,27 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+
+
+
     throw() {
         this.speedY = 10;
-        this.applyGravity();
+        this.applyGravityBottle();
 
 
         setInterval(() => {
 
             if (this.isAboveGround())
 
-                if (!world.character.otherDirectionChar) {
+                if (!world.character.otherDirectionChar && this.speedY <= 10) {
                     
                     
-                        this.x += 10;
-                  
+                        this.x += 8;
+
                 } else if(world.character.otherDirectionChar){
-                    
-                    this.x -= 10;
+
+                    this.x -= 8;
+
                 }
 
         }, 25);

@@ -20,7 +20,7 @@ class World {
     miniChickenx = 500;
     spawnedChicks = [];
 
-    test = false;
+    chickenIsDeadStatus = false;
 
 
 
@@ -49,18 +49,37 @@ class World {
 
     run() {
         setInterval(() => {
+
             this.checkCollisionsWithChickens();
-            this.checkCollisionsWithBoss();
-            this.checkThrowObjects();
+
+
+
+
+        }, 90);
+
+        setInterval(() => {
+
+
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
-            this.checkCollisionBottleWithChicken();
             this.checkCollisionsWithMiniChickens();
+
+
+
+        }, 30);
+
+
+
+        setInterval(() => {
+            this.checkThrowObjects();
+            this.checkCollisionsWithBoss();
+            this.checkCollisionBottleWithChicken();
             this.checkCollisionBottleWithMiniChicken();
 
+        }, 200);
 
 
-        }, 60);
+
     }
 
 
@@ -110,8 +129,14 @@ class World {
             if (this.character.isCollidingAtTop(miniChicken) && !this.character.y <= 180) {
                 miniChicken.hitChicken();
                 this.miniChickenIsDead(miniChicken);
+                this.chickenIsDeadStatus = true;
+               
+                setTimeout(() => {
+                    this.chickenIsDeadStatus = false;
+                  
+                }, 400);
 
-            } else if (this.character.isColliding(miniChicken)) {
+            } else if (this.chickenIsDeadStatus == false && this.character.isColliding(miniChicken) && this.character.y == 180) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
@@ -130,21 +155,17 @@ class World {
             if (this.character.isCollidingAtTop(chicken) && this.character.y < 180) {
                 chicken.hitChicken();
                 this.chickenIsDead(chicken);
-
-                this.test = true;
-                this.character.y += 1;
+                this.chickenIsDeadStatus = true;
                
                 setTimeout(() => {
-                    this.test = false;
-                   this.character.y -= 1;
+                    this.chickenIsDeadStatus = false;
+                  
                 }, 400);
 
-
-            } else if (this.test == false &&   this.character.isColliding(chicken) && this.character.y == 180) {
+            } else if (this.chickenIsDeadStatus == false &&   this.character.isColliding(chicken) && this.character.y == 180) {
                 this.character.hit();
                 this.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
-
             }
         });
     }
