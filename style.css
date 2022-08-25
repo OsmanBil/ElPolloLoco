@@ -27,20 +27,109 @@ body {
     justify-content: center;
 }
 
+.movementLeft{
+    display: flex;
+    justify-content: center;
+}
+
+.movementRight{
+    display: flex;
+    justify-content: center;
+}
+
+
 .startScreen{
     background-color: black;
     display: flex;
     justify-content: center;
     align-items: start;
-
     background-image: url("./img/9.Intro _ Outro Image/Start Screen/Opción 1.png");
     background-size: 720px 480px;
     background-position: center;
-
     width: 720px;
     height: 480px;
-
 }
+
+
+.startGameBtn{
+    margin-top: 50px;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background-color:#ffec64;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.startGameBtn:hover {
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background-color:#ffab23;
+}
+.startGameBtn:active {
+	position:relative;
+	top:1px;
+}
+
+.reStartGameBtnLose{
+    margin-top: 50px;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background-color:#ffec64;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.reStartGameBtnLose:hover {
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background-color:#ffab23;
+}
+.reStartGameBtnLose:active {
+	position:relative;
+	top:1px;
+}
+
+.reStartGameBtnWin{
+    margin-top: 50px;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background-color:#ffec64;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.reStartGameBtnWin:hover {
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background-color:#ffab23;
+}
+.reStartGameBtnWin:active {
+	position:relative;
+	top:1px;
+}
+
+
 
 .theEndScreen{
     background-color: black;
@@ -49,6 +138,7 @@ body {
     align-items: start;
 
     background-image: url("./img/9.Intro _ Outro Image/_Game over_ screen/4.Game over!.png");
+    opacity: 0.6;
 
     
     background-size: 720px 480px;
@@ -81,6 +171,38 @@ canvas {
     display: block;
 }
 
+.arrow{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.txtMiddle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px; 
+}
+
+.txtMiddleL{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px; 
+}
+
+.txtMiddleLL{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px; 
+    margin-bottom: 14px;
+}
 
 @media only screen and (max-width: 720px){
     canvas{
@@ -89,7 +211,14 @@ canvas {
 
     .startScreen{
         width: 100%;
+    }
 
+    .theEndScreen{
+        width: 100%;
+    }
+
+    .theEndScreenLost{
+        width: 100%;
     }
 
     .movement{
@@ -109,15 +238,39 @@ canvas {
 
     .startScreen{
         height: 85vh;
-
     }
 
+    .theEndScreen{
+        height: 85vh;
+    }
 
+    .theEndScreenLost{
+        height: 85vh;
+    }
 
     .title{
         display: none;
     }
-   
+
+    .txt1{
+        display: none;
+    }
+
+    .btnLeft{
+        margin-right: 20px;
+    }
+    
+    .btnRight{
+        margin-right: 20px;
+    }
+
+    .btnThrowBottle{
+        margin-right: 20px;  
+    }
+
+    .btnSpace{
+        margin-right: 20px;  
+    }
 }
 
 

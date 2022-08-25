@@ -17,17 +17,19 @@ class BottleBar extends DrawableObject {
         this.x = 30;
         this.y = 100;
         this.width = 200;
-        this.height = 60; 
-        this.setPercentageBottle(0);
+        this.height = 60;
+        this.setPercentageBottle(100);
     }
 
 
+    //----Setting percentage for bottles----
     setPercentageBottle(percentageBottle) {
         this.percentageBottle = percentageBottle;  // => 0...5
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    //----resolve image for bottle bar----
     resolveImageIndex() {
         if (this.percentageBottle == 5) {
             return 5;
@@ -43,12 +45,4 @@ class BottleBar extends DrawableObject {
             return 0;
         }
     }
-
-
-
-
-
-
-
-
 }

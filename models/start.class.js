@@ -1,10 +1,7 @@
-class Start{
+class Start {
     backgroundStart;
 
-    constructor(backgroundStart){
+    constructor(backgroundStart) {
         this.backgroundStart = backgroundStart;
-
     }
-
-
 }

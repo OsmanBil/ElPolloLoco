@@ -6,13 +6,9 @@ class Coin extends DrawableObject {
     height = 150;
 
     offsetleft = 20;
-
-    offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
-    }
+    offsetRight = 20;
+    offsetTop = 20;
+    offsetBottom = 20;
 
     constructor(x, y) {
         super().loadImage('img/8.Coin/Moneda2.png');

@@ -1,16 +1,10 @@
 class ThrowableObject extends MovableObject {
-
     bottleBreak = false;
     world;
-
     offsetleft = 20;
-
-    offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
-    }
+    offsetRight = 20;
+    offsetTop = 0;
+    offsetBottom = 0;
 
     IMAGES_BREAK = [
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 7.png',
@@ -35,61 +29,54 @@ class ThrowableObject extends MovableObject {
         this.height = 60;
         this.width = 50;
         this.throw();
-
         this.loadImages(this.IMAGES_BREAK);
         this.loadImages(this.IMAGES_ROTATE);
-
         this.animate();
     }
 
 
 
-
+    //----Attributes for throwing bottle and direction----
     throw() {
         this.speedY = 10;
         this.applyGravityBottle();
+        this.flyManager();
+    }
 
-
-        setInterval(() => {
-
-            if (this.isAboveGround())
-
-                if (!world.character.otherDirectionChar && this.speedY <= 10) {
-                    
-                    
-                        this.x += 8;
-
-                } else if(world.character.otherDirectionChar){
-
-                    this.x -= 8;
-
+    flyManager() {
+        var timer = setInterval(() => {
+            if (this.isAboveGround()) {
+                if (!world.character.otherDirectionChar) {
+                    this.x += 10;
                 }
+                if (world.character.otherDirectionChar) {
+                    this.x -= 5;
+                }
+            }
 
         }, 25);
+    }
+
+
+    flyingTime() {
+        setInterval(() => {
+            this.isFlying = false;
+        }, 400);
 
     }
 
+    //----For animating throwing bottles----
     animate() {
-
         setInterval(() => {
-
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_ROTATE);
-
-            } else if (this.bossIsHurt()) {
-                this.playAnimation(this.IMAGES_BREAK);
+                /*} else if (boss.isHurtBossIntern) {
+                    this.playAnimation(this.IMAGES_BREAK);
+                    boss.isHurtBossIntern = false;*/
             }
             else {
-
                 this.playAnimation(this.IMAGES_BREAK);
-
             }
-
-
-
         }, 100);
     }
-
-
-
 }

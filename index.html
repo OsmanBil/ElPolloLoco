@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
+    <link rel="icon" type="image/x-icon" href="img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 7.png">
     <link rel="stylesheet" href="style.css">
 
     <script src="./models/drawable-object.class.js"></script>
@@ -43,22 +44,41 @@
 
 
     <div class="startScreen" id="startScreen">
-        <button onclick="startGame()">Start</button>
-
+        <button class="startGameBtn" id="startGameBtn" onclick="startGame()">Start Game</button>
     </div>
 
 
 
 
     <div class="theEndScreen, displayNone" id="theEndScreen">
+        <button class="reStartGameBtnWin, displayNone" id="reStartGameBtnWin" onclick="reStartGame()">Restart
+            Game</button>
     </div>
     <div class="theEndScreenLost, displayNone" id="theEndScreenLost">
+        <button class="reStartGameBtnLose, displayNone" id="reStartGameBtnLose" onclick="reStartGame()">Restart
+            Game</button>
     </div>
 
 
-        <div class="movement">
-            <p> -> = Move Right || <-=Move Left || ____=Jump || D=Throw Bottle </p>
+    <div class="movement">
+
+        <div class="movementLeft">
+            <div id="btnLeft" class="txtMiddleL btnLeft" ontouchstart="mobileLeftDown()" ontouchend="mobileLeftUp()">
+                <img class="arrow" src="img/arrow-left.png"></div>
+            <div class="txtMiddle txt1"> Move Left </div>
+            <div id="btnRight" class="txtMiddleL btnRight" ontouchstart="mobileRightDown()"
+                ontouchend="mobileRightUp()"><img class="arrow" src="img/arrow-right.png"></div>
+            <div class="txtMiddle txt1"> Move Right </div>
         </div>
+        <div class="movementRight">
+            <div id="btnThrowBottle" class="txtMiddleL btnThrowBottle" ontouchstart="mobileThrowDown()"
+                ontouchend="mobileThrowUp()"><img class="arrow" src="img/d-button.png"></div>
+            <div class="txtMiddle txt1"> Throw Bottle </div>
+            <div id="btnSpace" class="txtMiddleLL btnSpace" ontouchstart="mobileSpaceDown()"
+                ontouchend="mobileSpaceUp()"><img class="arrow" src="img/space.png"></div>
+            <div class="txtMiddle txt1"> Jump </div>
+        </div>
+    </div>
 
 </body>
 

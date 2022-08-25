@@ -3,18 +3,12 @@ class Chicken extends MovableObject {
     height = 60;
     width = 80;
     y = 360;
+    energy = 5;
 
-   // chickenIsDeadStatus = false;
-
-    offsetleft = 20;
-
-
-    offset = {
-        top: 20,
-        right: 20,
-        left: 20,
-        bottom: 20
-    }
+    offsetleft = 0;
+    offsetRight = 0;
+    offsetTop = 0;
+    offsetBottom = 0;
 
     IMAGES_WALKING = ['img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
         'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png',
@@ -26,7 +20,7 @@ class Chicken extends MovableObject {
     ];
 
         
-    energy = 5;
+
 
     constructor() {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png')
@@ -37,32 +31,18 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    //----For animating chicken animations----
     animate() {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-
-
-
-
-
         setInterval(() => {
             if (this.chickenIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-              //  this.chickenIsDeadStatus = true;
                 this.speed = 0;
             }else{
                 this.playAnimation(this.IMAGES_WALKING);
             }
-
-            
         }, 200);
-
-
     }
-
-    /*chickenIsDead(status){
-        this.chickenIsDead = status;
-    }
-*/
 }

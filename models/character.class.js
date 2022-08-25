@@ -2,21 +2,18 @@ class Character extends MovableObject {
 
     height = 250;
     y = 180;
-    speed = 10;
+    speed = 8;
     coin = 0;
-    bottle = 20;
-
+    bottle = 4;
+    world;
+    walking_sound = new Audio('audio/walk.mp3');
     otherDirectionChar = false;
+    gameEnd = false;
 
     offsetleft = 20;
-
-
-    offset = {
-        top: 20,
-        right: 20,
-        left: 20,
-        bottom: 20
-    }
+    offsetRight = 20;
+    offsetTop = 20;
+    offsetBottom = 20;
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
@@ -51,7 +48,6 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png'
     ];
 
-
     IMAGES_HURT = [
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
@@ -59,63 +55,43 @@ class Character extends MovableObject {
 
     ];
 
-    world;
-    walking_sound = new Audio('audio/walk.mp3');
-
-
-
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        
         this.applyGravity();
         this.animate();
     }
 
 
+
+
+    //----For animating character animations----
     animate() {
 
-
-        setInterval(() => {
+        /*if (this.firstWalk) {
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                if (!this.isAboveGround()) {
-                    this.walking_sound.play();
-                }
-                this.otherDirection = false;
-                this.otherDirectionChar = false;
-            }
+        }
+        */
+        this.characterMovement();
+        this.characterAnimations();
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                if (!this.isAboveGround()) {
-                    this.walking_sound.play();
-                }
-                this.otherDirection = true;
-                this.otherDirectionChar = true;
-            }
+    }
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
+    //----Jump attributes for character----
+    jump() {
+        this.speedY = 30;
+        this.jump_sound.play();
+    }
 
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60)
-
-
-
+    //----Character animations----
+    characterAnimations() {
         setInterval(() => {
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                console.log('Spiel zu ende');
-
-
-            } else if(this.isHurt()){
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
             else if (this.isAboveGround()) {
@@ -126,14 +102,54 @@ class Character extends MovableObject {
                 }
             }
         }, 100);
+    };
+
+    //----Character movement----
+    characterMovement() {
+        setInterval(() => {
+            this.charSoundStop();
+            this.characterMovementToRight();
+            this.characterMovementToLeft();
+            this.characterMovementJump();
+            this.world.camera_x = -this.x + 100;
+        }, 1000 / 60)
+    };
+
+    charSoundStop() {
+        this.walking_sound.pause();
     }
 
-
-    jump() {
-        this.speedY = 30;
-        this.jump_sound.play();
+    characterMovementToRight() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !world.character.gameEnd) {
+            this.moveRight();
+            if (!this.isAboveGround()) {
+                this.startWalkSound();
+            }
+            this.otherDirection = false;
+            this.otherDirectionChar = false;
+        }
     }
 
+    characterMovementToLeft() {
+        if (this.world.keyboard.LEFT && this.x > 0 && !world.character.gameEnd) {
+            this.moveLeft();
+            if (!this.isAboveGround()) {
+                this.startWalkSound();
+            }
+            this.otherDirection = true;
+            this.otherDirectionChar = true;
+        }
+    }
+
+    characterMovementJump() {
+        if (this.world.keyboard.SPACE && !this.isAboveGround() && !world.character.gameEnd) {
+            this.jump();
+        }
+    }
+
+    startWalkSound() {
+        this.walking_sound.play();
+    }
 
 }
 
