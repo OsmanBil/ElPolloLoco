@@ -68,6 +68,7 @@ body {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffee66;
 }
+
 .startGameBtn:hover {
 	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
 	background-color:#ffab23;
@@ -209,8 +210,13 @@ canvas {
         width: 100%;
     }
 
+    .movement {
+        justify-content: space-between;;
+    }
+
     .startScreen{
         width: 100%;
+        background-size: 400px 480px;
     }
 
     .theEndScreen{
@@ -228,6 +234,27 @@ canvas {
     .title{
         display: none;
     }
+
+    .txt1{
+        display: none;
+    }
+
+    .btnLeft{
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    
+    .btnRight{
+        margin-right: 20px;
+    }
+
+    .btnThrowBottle{
+        margin-right: 20px;  
+    }
+
+    .btnSpace{
+        margin-right: 20px;  
+    }
    
 }
 
@@ -236,13 +263,22 @@ canvas {
         height: 85vh;
     }
 
+    .movement {
+        justify-content: space-between;;
+    }
+
     .startScreen{
         height: 85vh;
+    }
+
+    .startGameBtn{
+        margin-top: 30px;
     }
 
     .theEndScreen{
         height: 85vh;
     }
+    
 
     .theEndScreenLost{
         height: 85vh;
@@ -258,6 +294,7 @@ canvas {
 
     .btnLeft{
         margin-right: 20px;
+        margin-left: 20px;
     }
     
     .btnRight{

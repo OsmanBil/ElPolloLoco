@@ -15,15 +15,4 @@ class Bottle extends DrawableObject {
         this.x = x;
         this.y = y;
     }
-
-
-
-
-
-
-
-
-
-
-
 }

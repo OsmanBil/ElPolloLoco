@@ -1,8 +1,8 @@
 class ThrowableObject extends MovableObject {
     bottleBreak = false;
     world;
-    offsetleft = 20;
-    offsetRight = 20;
+    offsetleft = 0;
+    offsetRight = 0;
     offsetTop = 0;
     offsetBottom = 0;
 
@@ -33,7 +33,6 @@ class ThrowableObject extends MovableObject {
         this.loadImages(this.IMAGES_ROTATE);
         this.animate();
     }
-
 
 
     //----Attributes for throwing bottle and direction----

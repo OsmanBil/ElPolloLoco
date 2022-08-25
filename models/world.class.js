@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     boss = new Endboss();
     miniChicken = new MiniChicken();

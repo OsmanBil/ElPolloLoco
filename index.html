@@ -36,20 +36,11 @@
 
 <body onload="">
     <h1 class="title" id="title">El Pollo Loco</h1>
-
     <canvas class="displayNone" id="canvas" width="720" height="480">
     </canvas>
-
-
-
-
     <div class="startScreen" id="startScreen">
         <button class="startGameBtn" id="startGameBtn" onclick="startGame()">Start Game</button>
     </div>
-
-
-
-
     <div class="theEndScreen, displayNone" id="theEndScreen">
         <button class="reStartGameBtnWin, displayNone" id="reStartGameBtnWin" onclick="reStartGame()">Restart
             Game</button>
@@ -58,13 +49,11 @@
         <button class="reStartGameBtnLose, displayNone" id="reStartGameBtnLose" onclick="reStartGame()">Restart
             Game</button>
     </div>
-
-
     <div class="movement">
-
         <div class="movementLeft">
             <div id="btnLeft" class="txtMiddleL btnLeft" ontouchstart="mobileLeftDown()" ontouchend="mobileLeftUp()">
-                <img class="arrow" src="img/arrow-left.png"></div>
+                <img class="arrow" src="img/arrow-left.png">
+            </div>
             <div class="txtMiddle txt1"> Move Left </div>
             <div id="btnRight" class="txtMiddleL btnRight" ontouchstart="mobileRightDown()"
                 ontouchend="mobileRightUp()"><img class="arrow" src="img/arrow-right.png"></div>
@@ -79,7 +68,6 @@
             <div class="txtMiddle txt1"> Jump </div>
         </div>
     </div>
-
 </body>
 
 </html>

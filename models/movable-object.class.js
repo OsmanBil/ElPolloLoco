@@ -30,7 +30,6 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
-
     }
 
     applyGravityBottle() {
@@ -40,7 +39,6 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.accelerationBottle;
             }
         }, 1000 / 25);
-
     }
 
     //----If is above ground attributes for throwables/ Bottles and objects on ground----
